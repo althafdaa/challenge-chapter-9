@@ -1,11 +1,14 @@
 import React from 'react';
-import ExampleComponent from './components/ExampleComponent';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/ExamplePage/LandingPage';
 
 const App = () => {
   return (
-    <div>
-      <ExampleComponent />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
