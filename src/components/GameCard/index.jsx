@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const GameCard = ({ data }) => {
   return (
     <Link to={data?.route ?? '/'}>
-      <div className="w-[264px] transition-all hover:shadow-xl ">
+      <div className="w-[264px] transition-all hover:shadow-xl rounded-lg">
         <div
           className="w-[264px] h-[345px] relative shadow-lg"
           style={{
