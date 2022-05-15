@@ -5,6 +5,7 @@ import Header from './layouts/Header';
 import MainLayout from './layouts/MainLayout';
 import HalamanContoh from './pages/HalamanContoh';
 import Home from './pages/Home';
+import Register from './pages/Register';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/halaman-contoh" element={<HalamanContoh />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
         <Footer />
       </BrowserRouter>
