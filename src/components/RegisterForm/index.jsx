@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom";
 
 
 const RegisterForm = () => {
@@ -59,10 +60,14 @@ const RegisterForm = () => {
 
                 <div className="text-grey-dark mt-6">
                     Already have an account? 
-                    <a className="no-underline border-b border-blue text-blue-600" href="../login/">
-                        Log in
-                    </a>.
+                <Link to="/login">
+                <button className="text-grey-dark mt-6 underline">
+                Log In
+                </button>
+                </Link>
+                   
                 </div>
+
             </div>
         </div>
     )
