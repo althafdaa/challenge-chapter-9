@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from "react-router-dom"
 
 const LoginForm = () => {
     return (
-        <div className='min-h-screen flex flex-col items-center justify-center bg-gray-200'>
-            <div className='container flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-3xl w-50 max-w-md'>
+        <div className='min-h-screen flex flex-col items-center justify-center bg-white'>
+            <div className='container flex flex-col bg-gray-300 shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-3xl w-50 max-w-md'>
 
                 <div className='font-medium self-center text-xl sm:text-3xl text-gray-800'>
                     Login to your account
@@ -13,7 +14,7 @@ const LoginForm = () => {
                     <form action='#'>
                         <div className='flex flex-col mb-5'>
                             <label htmlFor="username"
-                            className='mb-1 text-xs tracking-wide text-gray-700'>
+                            className='mb-1 text-sx tracking-wide text-gray-700'>
                                 email/username
                             </label>
                             <div className='relative'>
@@ -67,18 +68,15 @@ const LoginForm = () => {
                 </div>
             </div>
             <div className='flex justify-center items-center mt-6'>
-                <a
-                href="/register"
-                className='inline-flex items-center text-gray-700 font-medium text-xs text-center'>
+                <div className='inline-flex items-center text-gray-700 font-medium text-xs text-center'>
                     <span className='ml-2'>
                         Dont have an account?
-                        <a 
-                        href="/register"
+                        <Link to="/register"
                         className='text-xs ml-2 text-blue-500 font-semibold'>
                             Register now
-                        </a>
+                        </Link>
                     </span>
-                </a>
+                </div>
             </div>
         </div>
     )
