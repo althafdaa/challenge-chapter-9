@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
 import MainLayout from './layouts/MainLayout';
-import HalamanContoh from './pages/HalamanContoh';
 import Home from './pages/Home';
+import Register from './pages/Register';
 import Profile from './pages/Profile';
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/halaman-contoh" element={<HalamanContoh />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
         <Footer />
       </BrowserRouter>
