@@ -99,18 +99,18 @@ const elements = [
 const Table = (props) => {
     const [score, setScore] = useState(0)
     const [results, setResults] = useState('')
-    const [housePick, setHousePick] = useState('default')
+    const [comPick, setComPick] = useState('default')
     const [playing, setPlaying] = useState(false)
     const [pick, setPick] = useState('')
-    function getRandomInt(min, max) {
+    const getRandomInt = (min, max) => {
         return Math.floor(Math.random() * (max - min)) + min;
     }
-    function launchHousePick() {
+    const launchComPick = () => {
         return new Promise((resolve, reject) => {
             let pick
             const interval = setInterval(() => {
                 pick = elements[getRandomInt(0, 3)]
-                setHousePick(pick)
+                setComPick(pick)
             }, 75)
             setTimeout(() => {
                 clearInterval(interval)
@@ -118,10 +118,10 @@ const Table = (props) => {
             }, 2000)
         })
     }
-    async function onClick(name) {
+    const onClick = async (name) => {
         setPlaying(true)
         setPick(name)
-        const house = await launchHousePick()
+        const house = await launchComPick()
         const results = gameStart(name, house)
         setResults(results)
         if (results === 'win') {
@@ -130,36 +130,36 @@ const Table = (props) => {
             props.onPlay(newScore)
         }
     }
-    function gameStart(pick, housePick) {
-        if (housePick === pick) {
+    const gameStart = (pick, comPick) => {
+        if (comPick === pick) {
             return 'draw'
         }
         if (pick === 'paper') {
-            if (housePick === 'scissors') {
+            if (comPick === 'scissors') {
                 return 'lose'
             }
-            if (housePick === 'rock') {
+            if (comPick === 'rock') {
                 return 'win'
             }
         }
         if (pick === 'scissors') {
-            if (housePick === 'paper') {
+            if (comPick === 'paper') {
                 return 'win'
             }
-            if (housePick === 'rock') {
+            if (comPick === 'rock') {
                 return 'lose'
             }
         }
         if (pick === 'rock') {
-            if (housePick === 'paper') {
+            if (comPick === 'paper') {
                 return 'lose'
             }
-            if (housePick === 'scissors') {
+            if (comPick === 'scissors') {
                 return 'win'
             }
         }
     }
-    function handleTryAgainClick() {
+    const handleTryAgainClick = () => {
         setPlaying(false)
         setResults('')
     }
@@ -180,7 +180,7 @@ const Table = (props) => {
                             <p className="mt-2 text-white">You Picked</p>
                         </div>
                         <div className="in-game">
-                            <Pick playing={playing} name={housePick} isShadowAnimated={(results === 'lose')} />
+                            <Pick playing={playing} name={comPick} isShadowAnimated={(results === 'lose')} />
                             <p className="mt-2 text-white">The COM Picked</p>
                         </div>
                         <div className="results">

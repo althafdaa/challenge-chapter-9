@@ -78,7 +78,7 @@ const Pick = ({ name = 'default', onClick, isShadowAnimated = false, playing }) 
     return (
         <PickStyled color={color} onClick={handleClick} name={name} isShadowAnimated={isShadowAnimated} playing={playing}>
             <div className="box">
-                <img src={`./img/icon-${name}.svg`} alt="" />
+                <img src={`./img/icon-${name}.svg`} alt="pick" />
             </div>
         </PickStyled>
     )
