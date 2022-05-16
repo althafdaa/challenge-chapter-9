@@ -6,6 +6,7 @@ import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import Game from './pages/Game';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/game" element={<Game />} />
         </Routes>
         <Footer />
       </BrowserRouter>
