@@ -11,7 +11,7 @@ const GamePlay = () => {
         });
     }
     return (
-        <main className="relative min-h-screen bg-slate-600">
+        <main className="relative min-h-screen bg-slate-600 -mt-5">
             <div className="container w-full mx-auto">
                 <div className="grid grid-cols-12 grid-rows-4 gap-4 ">
                     <div className="col-start-2 col-end-12 md:col-start-4 md:col-end-10 border-2 rounded-md p-4 m-4">
