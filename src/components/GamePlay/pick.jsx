@@ -1,5 +1,8 @@
 import React from "react";
 import styled, { keyframes } from 'styled-components'
+import rock from '../../images/icon-rock.svg'
+import paper from '../../images/icon-paper.svg'
+import scissors from '../../images/icon-scissors.svg'
 
 const shadow = keyframes`
   to {
@@ -76,9 +79,9 @@ const Pick = ({ name = 'default', onClick, isShadowAnimated = false, playing }) 
     }
     const color = colors[name]
     return (
-        <PickStyled color={color} onClick={handleClick} name={name} isShadowAnimated={isShadowAnimated} playing={playing}>
+        <PickStyled color={color} onClick={handleClick} isShadowAnimated={isShadowAnimated}>
             <div className="box">
-                <img src={`./img/icon-${name}.svg`} alt="pick" />
+                <img src={name === 'rock' ? rock : name === 'scissors' ? scissors : name === 'paper' ? paper : ''} alt="rock" />
             </div>
         </PickStyled>
     )
