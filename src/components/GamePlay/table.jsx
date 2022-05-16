@@ -188,9 +188,11 @@ const Table = (props) => {
                                 results && (
                                     <>
                                         <h2 className="text-white font-bold">YOU {results}</h2>
-                                        <button className="bg-white rounded-md p-5" onClick={handleTryAgainClick}>
+
+                                        <button className="bg-white rounded-md py-5 px-8" onClick={handleTryAgainClick}>
                                             Try Again
                                         </button>
+                                        <button className="py-5 px-7 md:mt-8 ml-2 md:ml-0 bg-green-400 hover:bg-green-500 text-center rounded-md transition-[0.5s]">End Game</button>
                                     </>
                                 )
                             }

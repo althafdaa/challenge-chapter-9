@@ -17,7 +17,7 @@ const GamePlay = () => {
                     <div className="col-start-2 col-end-12 md:col-start-4 md:col-end-10 border-2 rounded-md p-4 m-4">
                         <HeaderGame score={score} />
                     </div>
-                    <div className="col-start-2 col-end-12 md:col-start-4 md:col-end-10 row-span-3">
+                    <div className="col-start-2 col-end-12 md:col-start-4 md:col-end-10 row-span-3 flex items-center justify-center">
                         <Table onPlay={scoreHandler} />
                     </div>
                 </div>
