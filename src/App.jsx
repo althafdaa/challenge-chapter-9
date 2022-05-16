@@ -5,6 +5,8 @@ import Header from './layouts/Header';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Register';
+import Profile from './pages/Profile';
 
 const App = () => {
   return (
@@ -14,6 +16,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
         <Footer />
       </BrowserRouter>
