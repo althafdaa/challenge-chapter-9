@@ -124,7 +124,7 @@ const Table = (props) => {
         const results = gameStart(name, house)
         setResults(results)
         if (results === 'win') {
-            props.getScore(1)
+            props.getScore(prev => prev + 1)
         }
     }
     const gameStart = (pick, comPick) => {
