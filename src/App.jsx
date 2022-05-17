@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import GameDetail from './pages/GameDetail';
+import Game from './pages/Game';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/register" element={<Register />} />
           <Route path="/game-detail" element={<GameDetail />} />
+          <Route path="/game" element={<Game />} />
         </Routes>
         <Footer />
       </BrowserRouter>
