@@ -1,7 +1,11 @@
 import React from 'react';
 
 const MainLayout = ({ children }) => {
-  return <div>{children}</div>;
+  return (
+    <div className="mx-auto w-full 2xl:w-[1440px] flex flex-col">
+      {children}
+    </div>
+  );
 };
 
 export default MainLayout;

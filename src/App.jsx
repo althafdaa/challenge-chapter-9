@@ -1,14 +1,31 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LandingPage from './pages/LandingPage';
+import Footer from './layouts/Footer';
+import Header from './layouts/Header';
+import MainLayout from './layouts/MainLayout';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Profile from './pages/Profile';
+import GameDetail from './pages/GameDetail';
+import Game from './pages/Game';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-      </Routes>
-    </BrowserRouter>
+    <MainLayout>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/game-detail" element={<GameDetail />} />
+          <Route path="/game" element={<Game />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </MainLayout>
   );
 };
 
