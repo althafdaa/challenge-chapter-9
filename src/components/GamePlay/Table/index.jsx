@@ -120,8 +120,8 @@ const Table = (props) => {
     const onChoosePick = async (name) => {
         setPlaying(true)
         setPick(name)
-        const house = await launchComPick()
-        const results = gameStart(name, house)
+        const comChoosePick = await launchComPick()
+        const results = gameStart(name, comChoosePick)
         setResults(results)
         if (results === 'win') {
             props.getScore(prev => prev + 1)
