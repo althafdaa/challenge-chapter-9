@@ -15,7 +15,7 @@ export const GameLists = [
     imageUrl:
       'https://user-images.githubusercontent.com/92288572/168407755-d2e3e9f0-fcdc-4a0d-8bb4-215490345f6a.jpg',
     score: 10,
-    route: '/game',
+    route: '/game-detail',
     bgColor: 'bg-yellow-400',
   },
   {
