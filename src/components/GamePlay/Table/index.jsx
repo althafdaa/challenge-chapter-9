@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from 'styled-components'
-import Pick from './pick'
+import Pick from '../Pick'
 
 const TableStyled = styled.div`
   display: grid;
@@ -97,7 +97,6 @@ const elements = [
 ]
 
 const Table = (props) => {
-    const [score, setScore] = useState(0)
     const [results, setResults] = useState('')
     const [comPick, setComPick] = useState('default')
     const [playing, setPlaying] = useState(false)
@@ -118,16 +117,14 @@ const Table = (props) => {
             }, 2000)
         })
     }
-    const onClick = async (name) => {
+    const onChoosePick = async (name) => {
         setPlaying(true)
         setPick(name)
         const house = await launchComPick()
         const results = gameStart(name, house)
         setResults(results)
         if (results === 'win') {
-            let newScore = score + 1
-            setScore(newScore)
-            props.onPlay(newScore)
+            props.getScore(1)
         }
     }
     const gameStart = (pick, comPick) => {
@@ -169,9 +166,9 @@ const Table = (props) => {
             {
                 !playing ? (
                     <>
-                        <Pick name="paper" onClick={onClick} />
-                        <Pick name="scissors" onClick={onClick} />
-                        <Pick name="rock" onClick={onClick} />
+                        <Pick name="paper" onClick={onChoosePick} />
+                        <Pick name="scissors" onClick={onChoosePick} />
+                        <Pick name="rock" onClick={onChoosePick} />
                     </>
                 ) : (
                     <>

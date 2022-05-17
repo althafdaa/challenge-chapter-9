@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { keyframes } from 'styled-components'
-import rock from '../../images/icon-rock.svg'
-import paper from '../../images/icon-paper.svg'
-import scissors from '../../images/icon-scissors.svg'
+import rock from '../../../images/icon-rock.svg'
+import paper from '../../../images/icon-paper.svg'
+import scissors from '../../../images/icon-scissors.svg'
 
 const shadow = keyframes`
   to {
@@ -53,38 +53,33 @@ const PickStyled = styled.div`
 `
 
 const colors = {
-    paper: {
-        base: '#516ef4',
-        border: '#2543c3',
-    },
-    rock: {
-        base: '#de3a5a',
-        border: '#980e31',
-    },
-    scissors: {
-        base: '#eca81e',
-        border: '#c76c14',
-    },
-    default: {
-        base: 'trasparent',
-        border: 'trasparent',
-    }
+  paper: {
+    base: '#516ef4',
+    border: '#2543c3',
+  },
+  rock: {
+    base: '#de3a5a',
+    border: '#980e31',
+  },
+  scissors: {
+    base: '#eca81e',
+    border: '#c76c14',
+  },
+  default: {
+    base: 'trasparent',
+    border: 'trasparent',
+  }
 }
 
 const Pick = ({ name = 'default', onClick, isShadowAnimated = false, playing }) => {
-    let handleClick = () => {
-        if (onClick) {
-            onClick(name)
-        }
-    }
-    const color = colors[name]
-    return (
-        <PickStyled color={color} onClick={handleClick} isShadowAnimated={isShadowAnimated}>
-            <div className="box">
-                <img src={name === 'rock' ? rock : name === 'scissors' ? scissors : name === 'paper' ? paper : ''} alt="rock" />
-            </div>
-        </PickStyled>
-    )
+  const color = colors[name]
+  return (
+    <PickStyled color={color} onClick={() => onClick(name)} isShadowAnimated={isShadowAnimated}>
+      <div className="box">
+        <img src={name === 'rock' ? rock : name === 'scissors' ? scissors : name === 'paper' ? paper : ''} alt="rock" />
+      </div>
+    </PickStyled>
+  )
 }
 
 export default Pick;

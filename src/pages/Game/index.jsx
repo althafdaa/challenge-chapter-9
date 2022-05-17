@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import HeaderGame from "../../components/GamePlay/header";
-import Table from "../../components/GamePlay/table";
+import HeaderGame from "../../components/GamePlay/Header";
+import Table from "../../components/GamePlay/Table";
 
 const GamePlay = () => {
     const [score, setScore] = useState(0);
 
     const scoreHandler = (score) => {
-        setScore(() => {
-            return score
+        setScore((prevScore) => {
+            return prevScore + score;
         });
     }
     return (
@@ -18,7 +18,7 @@ const GamePlay = () => {
                         <HeaderGame score={score} />
                     </div>
                     <div className="col-start-2 col-end-12 md:col-start-4 md:col-end-10 row-span-3 flex items-center justify-center">
-                        <Table onPlay={scoreHandler} />
+                        <Table getScore={scoreHandler} />
                     </div>
                 </div>
             </div>
