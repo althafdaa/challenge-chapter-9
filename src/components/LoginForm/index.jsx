@@ -1,8 +1,26 @@
 import React from 'react';
 import { Link } from "react-router-dom"
 import ArrowIcon from '../../icons/LoginIcons';
+import { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../configs/firebase.config';
 
 const LoginForm = () => {
+    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+
+    const login = async () => {
+        try {
+            const user = await signInWithEmailAndPassword(
+                auth,
+                loginEmail,
+                loginPassword
+            );
+        } catch (error) {
+            console.log("cek ini", error.massege);
+        }
+    }
+
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-white'>
             <div className='container flex flex-col bg-gray-300 shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-3xl w-50 max-w-md'>
@@ -25,7 +43,9 @@ const LoginForm = () => {
                                  type="text"
                                  name='username'
                                  className='text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400'
-                                 placeholder='Enter your email/username'/>
+                                 placeholder='Enter your email/username'
+                                 onChange={(event) => {setLoginEmail(event.target.value)}}
+                                 />
                             </div>
                         </div>
                         <div className='flex flex-col mb-6'>
@@ -40,11 +60,14 @@ const LoginForm = () => {
                                  type="password"
                                  name='password'
                                  className='text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400'
-                                 placeholder='Enter your password'/>
+                                 placeholder='Enter your password'
+                                 onChange={(event) => {setLoginPassword(event.target.value)}}
+                                 />
                             </div>
                         </div>
                         <div className='flex w-full'>
                             <button
+                            onClick={login}
                             type='sumbit'
                             className='flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-500 hover:bg-blue-600 rounded-2xl py-2 w-full transition duration-150 ease-in'>
                                 <span className='mr-2 uppercase'>
