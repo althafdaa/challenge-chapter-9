@@ -8,14 +8,15 @@ import {
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { db } from '../../configs/firebase.config';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const RegisterForm = () => {
   const [form, setForm] = useState({
-    userName: null,
-    fullName: null,
-    email: null,
-    password: null,
-    confirmPassword: null,
+    userName: '',
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
   const [loading, setLoading] = useState(false);
   const auth = getAuth();
@@ -29,7 +30,13 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      toast.error("Password isn't same with confirm password");
+      return;
+    }
     setLoading(true);
+
     try {
       const { user } = await createUserWithEmailAndPassword(
         auth,
@@ -47,9 +54,11 @@ const RegisterForm = () => {
       await updateProfile(auth.currentUser, {
         displayName: fullName,
       });
+      toast.success('Create account success');
       navigate('/login');
     } catch (error) {
       console.log(error);
+      toast.error(error);
     } finally {
       setLoading(false);
     }

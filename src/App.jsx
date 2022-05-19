@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import GameDetail from './pages/GameDetail';
 import Game from './pages/Game';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
