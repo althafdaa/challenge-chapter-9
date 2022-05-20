@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from '../../layouts/Footer';
 import { GameLists } from '../../utils/constant';
 import GameCard from '../GameCard';
 
