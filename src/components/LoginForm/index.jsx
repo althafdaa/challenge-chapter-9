@@ -1,8 +1,50 @@
 import React from 'react';
 import { Link } from "react-router-dom"
 import ArrowIcon from '../../icons/LoginIcons';
+import { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../../configs/firebase.config';
+import { useStoreAuth } from '../../contexts/useAuth';
+import { toast } from 'react-toastify'
 
 const LoginForm = () => {
+    const [form, setForm] = useState({
+        email: '',
+        password: ''
+    })
+
+    const { setLoggedIn } = useStoreAuth()
+
+    const navigate = useNavigate()
+
+    const { email, password } = form;
+
+    const handleOnChange = (e) => {
+        setForm((prev) => ({ ...prev, [e.target.name]: e.target.value}))
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const { user } = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+            if (user) {
+                setLoggedIn(true)
+                navigate("/")
+                toast.success('Login Success')
+            }
+
+        } catch (error) {
+            console.log(error.massege)
+        }
+    }
+
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-white'>
             <div className='container flex flex-col bg-gray-300 shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-3xl w-50 max-w-md'>
@@ -12,7 +54,8 @@ const LoginForm = () => {
                 </div>
 
                 <div className='mt-10'>
-                    <form action='#'>
+                    <form action='#'
+                    onSubmit={handleSubmit}>
                         <div className='flex flex-col mb-5'>
                             <label htmlFor="username"
                             className='mb-1 text-sx tracking-wide text-gray-700'>
@@ -23,9 +66,12 @@ const LoginForm = () => {
                                 </div>
                                 <input
                                  type="text"
-                                 name='username'
+                                 name='email'
+                                 value={email}
                                  className='text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400'
-                                 placeholder='Enter your email/username'/>
+                                 placeholder='Enter your email/username'
+                                 onChange={handleOnChange}
+                                 />
                             </div>
                         </div>
                         <div className='flex flex-col mb-6'>
@@ -39,8 +85,11 @@ const LoginForm = () => {
                                 <input
                                  type="password"
                                  name='password'
+                                 value={password}
                                  className='text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400'
-                                 placeholder='Enter your password'/>
+                                 placeholder='Enter your password'
+                                 onChange={handleOnChange}
+                                 />
                             </div>
                         </div>
                         <div className='flex w-full'>
@@ -72,5 +121,4 @@ const LoginForm = () => {
         </div>
     )
 }
-
 export default LoginForm

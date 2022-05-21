@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAANZ84LNuGdXXonbwwMbiLVwvqbAM19Nc',
@@ -10,6 +11,7 @@ const firebaseConfig = {
   appId: '1:965541150035:web:2cf37a672037725e6075a6',
 };
 
-initializeApp(firebaseConfig);
+const app =  initializeApp(firebaseConfig);
 
 export const db = getFirestore();
+export const auth = getAuth(app)
