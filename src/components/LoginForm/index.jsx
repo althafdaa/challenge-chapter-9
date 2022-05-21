@@ -3,21 +3,40 @@ import { Link } from "react-router-dom"
 import ArrowIcon from '../../icons/LoginIcons';
 import { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../../configs/firebase.config';
 
-const LoginForm = () => {
-    const [loginEmail, setLoginEmail] = useState("");
-    const [loginPassword, setLoginPassword] = useState("");
 
-    const login = async () => {
+
+const LoginForm = () => {
+    const [form, setForm] = useState({
+        email: '',
+        password: ''
+    })
+
+    const navigate = useNavigate()
+
+    const { email, password } = form;
+
+    const handleOnChange = (e) => {
+        setForm((prev) => ({ ...prev, [e.target.name]: e.target.value}))
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
         try {
-            const user = await signInWithEmailAndPassword(
+            const { user } = await signInWithEmailAndPassword(
                 auth,
-                loginEmail,
-                loginPassword
+                email,
+                password
             );
+
+            if (user) {
+                navigate("/")}
+
         } catch (error) {
-            console.log("cek ini", error.massege);
+            console.log(error.massege)
         }
     }
 
@@ -30,7 +49,8 @@ const LoginForm = () => {
                 </div>
 
                 <div className='mt-10'>
-                    <form action='#'>
+                    <form action='#'
+                    onSubmit={handleSubmit}>
                         <div className='flex flex-col mb-5'>
                             <label htmlFor="username"
                             className='mb-1 text-sx tracking-wide text-gray-700'>
@@ -41,10 +61,11 @@ const LoginForm = () => {
                                 </div>
                                 <input
                                  type="text"
-                                 name='username'
+                                 name='email'
+                                 value={email}
                                  className='text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400'
                                  placeholder='Enter your email/username'
-                                 onChange={(event) => {setLoginEmail(event.target.value)}}
+                                 onChange={handleOnChange}
                                  />
                             </div>
                         </div>
@@ -59,15 +80,15 @@ const LoginForm = () => {
                                 <input
                                  type="password"
                                  name='password'
+                                 value={password}
                                  className='text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400'
                                  placeholder='Enter your password'
-                                 onChange={(event) => {setLoginPassword(event.target.value)}}
+                                 onChange={handleOnChange}
                                  />
                             </div>
                         </div>
                         <div className='flex w-full'>
                             <button
-                            onClick={login}
                             type='sumbit'
                             className='flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-500 hover:bg-blue-600 rounded-2xl py-2 w-full transition duration-150 ease-in'>
                                 <span className='mr-2 uppercase'>
@@ -95,5 +116,4 @@ const LoginForm = () => {
         </div>
     )
 }
-
 export default LoginForm
