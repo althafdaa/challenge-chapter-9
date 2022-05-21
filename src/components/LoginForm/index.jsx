@@ -5,14 +5,16 @@ import { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../configs/firebase.config';
-
-
+import { useStoreAuth } from '../../contexts/useAuth';
+import { toast } from 'react-toastify'
 
 const LoginForm = () => {
     const [form, setForm] = useState({
         email: '',
         password: ''
     })
+
+    const { setLoggedIn } = useStoreAuth()
 
     const navigate = useNavigate()
 
@@ -33,7 +35,10 @@ const LoginForm = () => {
             );
 
             if (user) {
-                navigate("/")}
+                setLoggedIn(true)
+                navigate("/")
+                toast.success('Login Success')
+            }
 
         } catch (error) {
             console.log(error.massege)
