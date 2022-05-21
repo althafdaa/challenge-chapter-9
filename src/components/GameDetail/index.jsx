@@ -6,44 +6,26 @@ import { db } from "../../configs/firebase.config"
 import { collection, getDocs } from "firebase/firestore"
 import { query, limit, orderBy } from 'firebase/firestore';
 
-
-    let users = []
-    // console.log("satu", users);
-    const colRef = collection(db, 'users')
-    // getDocs(colRef)
-    //     .then((snapshot) => {
-    //     // console.log(snapshot.docs)
-            
-    //     snapshot.docs.forEach((doc)=> {
-    //     users.push({...doc.data(), id: doc.id })
-    //     // const q = query(colRef, orderBy("userName"), limit(2));
-    //     // console.log(q);
-    //     })
-    //     // console.log("dua", users);
-    // })  
-    //     .catch((err) => {
-    //     console.log("error", err.messege);
-    // });
-
 const GameDetail = () => {
     const [data, setData] = useState([])
     const getData = async () => {
+        const colRef = collection(db, 'users')
         const q = query(colRef, orderBy("score", "desc"), limit(2));
-        // console.log(q, "ini q");
-        const data = await getDocs(q)
-        setData(data.docs.map((item) => {
-            return {...item.data(), id: item.id}
-        }));
+        try {
+            const {docs} = await getDocs(q)
+            const result = docs?.map((item) => {
+                return {...item?.data(), id: item?.id}
+            })
+            setData(result);
+        } catch (error) {
+            console.log(error);
+        }
     }
-    // console.log(getData);
-    
-   
+  
     useEffect(()=> {
         getData()
     }, [])
-    console.log(users);     
-
-
+ 
     return (
         <main className="relative min-h-screen">
             <div className="container mx-auto px-4 py-16">
