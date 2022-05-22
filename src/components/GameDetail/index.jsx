@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './index.css'
 import { Link } from 'react-router-dom';
 import Leaderboard from '../Leaderboard';
-import { TopRank } from '../../utils/constant';
+import { db } from "../../configs/firebase.config"
+import { collection, getDocs } from "firebase/firestore"
+import { query, limit, orderBy } from 'firebase/firestore';
 
 const GameDetail = () => {
+    const [data, setData] = useState([])
+    const getData = async () => {
+        const colRef = collection(db, 'users')
+        const q = query(colRef, orderBy("totalScore", "desc"), limit(5));
+        try {
+            const {docs} = await getDocs(q)
+            const result = docs?.map((item) => {
+                return {...item?.data(), id: item?.id}
+            })
+            setData(result);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+  
+    useEffect(()=> {
+        getData()
+    }, [])
+ 
     return (
         <main className="relative min-h-screen">
             <div className="container mx-auto px-4 py-16">
@@ -43,7 +64,7 @@ const GameDetail = () => {
                                 <h1 className='text-lg text-center font-bold'>Leaderboard Game</h1>
                                 <div className={classes}>
                                     <div className="h-[60vh] overflow-y-auto px-2 scroll">
-                                        {TopRank?.map((item, idx) => {
+                                        {data?.map((item, idx) => {
                                         return <Leaderboard data={item} key={idx} />;
                                         })}
                                     </div>
