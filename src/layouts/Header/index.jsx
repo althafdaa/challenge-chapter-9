@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { LeftMenu, } from '../../utils/constant';
 import { useStoreAuth } from '../../contexts/useAuth';
-import { Logout } from '../../components/LoginForm';
+import { Logout } from '../../utils/etc'
 const Header = () => {
   const user = useStoreAuth().loggedIn
 
@@ -29,10 +29,18 @@ const Header = () => {
           </div>
 
           <div className="flex gap-8 font-medium mt-2 ">
-                {user && <Link to="/profile" className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400' >Profile</Link>}
-                {user && <Link to="/" className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400' onClick={Logout}>Logout</Link>}
-                {!user && <Link to='/login' className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400'>Login</Link>}
-                {!user && <Link to='/register' className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400'>Register</Link>}
+                {user && (
+                <>
+                <Link to="/profile" className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400' >Profile</Link>
+                <Link to="/" className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400' onClick={Logout}>Logout</Link>
+                </>
+                )}
+                {!user && (
+                <>
+                <Link to='/login' className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400'>Login</Link>
+                <Link to='/register' className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400'>Register</Link>
+                </>
+                )}
             {/* {RightMenu?.map((item, idx) => {
               return (
                 <Link key={idx} to={item?.route}>
