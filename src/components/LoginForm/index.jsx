@@ -2,11 +2,13 @@ import React from 'react';
 import { Link } from "react-router-dom"
 import ArrowIcon from '../../icons/LoginIcons';
 import { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../configs/firebase.config';
 import { useStoreAuth } from '../../contexts/useAuth';
 import { toast } from 'react-toastify'
+import { async } from '@firebase/util';
+import Login from '../../pages/Login';
 
 const LoginForm = () => {
     const [form, setForm] = useState({
@@ -123,3 +125,12 @@ const LoginForm = () => {
     )
 }
 export default LoginForm
+
+
+export const Logout = async () => {
+    await signOut(auth)
+}
+
+
+
+

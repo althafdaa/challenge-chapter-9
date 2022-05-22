@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { LeftMenu, } from '../../utils/constant';
 import { useStoreAuth } from '../../contexts/useAuth';
-
+import { Logout } from '../../components/LoginForm';
 const Header = () => {
   const user = useStoreAuth().loggedIn
 
@@ -30,7 +30,7 @@ const Header = () => {
 
           <div className="flex gap-8 font-medium mt-2 ">
                 {user && <Link to="/profile" className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400' >Profile</Link>}
-                {user && <Link to="/Logout" className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400' >Logout</Link>}
+                {user && <Link to="/" className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400' onClick={Logout}>Logout</Link>}
                 {!user && <Link to='/login' className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400'>Login</Link>}
                 {!user && <Link to='/register' className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400'>Register</Link>}
             {/* {RightMenu?.map((item, idx) => {
