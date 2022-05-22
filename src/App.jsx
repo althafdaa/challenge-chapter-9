@@ -8,8 +8,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import GameDetail from './pages/GameDetail';
-import Game from './pages/Game';
+import GamePlay from './pages/Game';
 import 'react-toastify/dist/ReactToastify.css';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App = () => {
   return (
@@ -19,10 +20,24 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/register" element={<Register />} />
           <Route path="/game-detail" element={<GameDetail />} />
-          <Route path="/game" element={<Game />} />
+          <Route
+            path="/game"
+            element={
+              <ProtectedRoute>
+                <GamePlay />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
