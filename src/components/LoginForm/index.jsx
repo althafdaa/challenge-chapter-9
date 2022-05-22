@@ -39,11 +39,12 @@ const LoginForm = () => {
                 navigate("/")
                 toast.success('Login Success')
             }
-
+            // console.log(user);
         } catch (error) {
             console.log(error.massege)
         }
     }
+
 
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-white'>
