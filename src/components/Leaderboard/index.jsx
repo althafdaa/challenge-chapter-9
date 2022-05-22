@@ -9,10 +9,10 @@ const Leaderboard = ({data}) => {
             <div className="col-start-1 col-end-4 md:col-span-2 ml-2 flex items-start flex-col justify-center">
                 <h1 className='text-lg font-bold mb-4'>{data?.fullName ?? 'null'}</h1>
                 <p className='text-md font-medium'>Username : {data?.userName ?? 'null'}</p>
-                <p className='text-md font-medium'>Pangkat : {data?.pangkat ?? 'null'}</p>
+                <p className='text-md font-medium'>Rank : {data?.rank ?? 'null'}</p>
             </div>
             <div className="col-start-5 col-end-7 md:col-span-2 flex justify-center items-center">
-                <p className='text-md font-medium'>Score : <span className='font-bold'>{data?.score ?? 'null'}</span></p>
+                <p className='text-md font-medium'>Score : <span className='font-bold'>{data?.totalScore ?? 'null'}</span></p>
             </div>
         </div>
     )
