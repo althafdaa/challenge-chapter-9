@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { LeftMenu, } from '../../utils/constant';
 import { useStoreAuth } from '../../contexts/useAuth';
 import { Logout } from '../../utils/etc'
+
 const Header = () => {
+  
   const user = useStoreAuth().loggedIn
 
   return (
@@ -41,15 +43,6 @@ const Header = () => {
                 <Link to='/register' className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400'>Register</Link>
                 </>
                 )}
-            {/* {RightMenu?.map((item, idx) => {
-              return (
-                <Link key={idx} to={item?.route}>
-                  <div className="transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400">
-                    {item?.label}
-                  </div>
-                </Link>
-              );
-            })} */}
           </div>
         </nav>
       </header>
