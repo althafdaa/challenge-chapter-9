@@ -10,7 +10,7 @@ const GameDetail = () => {
     const [data, setData] = useState([])
     const getData = async () => {
         const colRef = collection(db, 'users')
-        const q = query(colRef, orderBy("score", "desc"), limit(2));
+        const q = query(colRef, orderBy("totalScore", "desc"), limit(5));
         try {
             const {docs} = await getDocs(q)
             const result = docs?.map((item) => {
