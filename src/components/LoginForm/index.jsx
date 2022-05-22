@@ -8,6 +8,7 @@ import { auth } from '../../configs/firebase.config';
 import { useStoreAuth } from '../../contexts/useAuth';
 import { toast } from 'react-toastify'
 
+
 const LoginForm = () => {
     const [form, setForm] = useState({
         email: '',
@@ -39,11 +40,12 @@ const LoginForm = () => {
                 navigate("/")
                 toast.success('Login Success')
             }
-
         } catch (error) {
-            console.log(error.massege)
+            console.log(error);
+            toast.error('Login Failed')
         }
     }
+
 
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-white'>
@@ -122,3 +124,6 @@ const LoginForm = () => {
     )
 }
 export default LoginForm
+
+
+
