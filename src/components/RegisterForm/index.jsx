@@ -48,6 +48,7 @@ const RegisterForm = () => {
         ...form,
         totalScore: 0,
         history: [],
+        rank: 'Crusader',
         timestamp: serverTimestamp(),
       };
 
