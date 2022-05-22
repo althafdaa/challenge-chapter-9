@@ -44,7 +44,14 @@ const RegisterForm = () => {
         password
       );
 
-      const payload = { ...form, timestamp: serverTimestamp() };
+      const payload = {
+        ...form,
+        totalScore: 0,
+        history: [],
+        rank: 'Crusader',
+        timestamp: serverTimestamp(),
+      };
+
       delete payload.password;
       delete payload.confirmPassword;
 
