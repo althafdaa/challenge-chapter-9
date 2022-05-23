@@ -61,8 +61,8 @@ const RegisterForm = () => {
       await updateProfile(auth.currentUser, {
         displayName: fullName,
       });
-      toast.success('Create account success');
-      navigate('/login');
+      toast.success(`Create account success, welcome ${userName}`);
+      navigate('/');
     } catch (error) {
       console.log(error);
       toast.error(error);
