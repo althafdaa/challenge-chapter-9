@@ -102,32 +102,14 @@ const elements = [
 ]
 
 const Table = (props) => {
-    const [score, setScore] = useState(0)
     const [results, setResults] = useState('')
     const [comPick, setComPick] = useState('default')
     const [playing, setPlaying] = useState(false)
     const [pick, setPick] = useState('')
-    const [oldData, setOldData] = useState([])
+    const [prevData, setPrevData] = useState([])
     const auth = getAuth()
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const getUser = async () => {
-            const userRef = doc(db, 'users', auth?.currentUser?.uid)
-            try {
-                const user = await getDoc(userRef)
-                if (user.exists()) {
-                    setOldData(user.data().history)
-                }
-
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        getUser()
-    }, [])
-
 
     const getRandomInt = (min, max) => {
         return Math.floor(Math.random() * (max - min)) + min;
@@ -152,8 +134,7 @@ const Table = (props) => {
         const results = gameStart(name, comChoosePick)
         setResults(results)
         if (results === 'win') {
-            setScore(score + 1)
-            props.getScore(prev => prev + 1)
+            props.setScore(prev => prev + 1)
         }
     }
     const gameStart = (pick, comPick) => {
@@ -193,24 +174,39 @@ const Table = (props) => {
     const endGame = async () => {
         try {
             const docRef = doc(db, 'users', auth?.currentUser?.uid)
-            const newField = {
-                history: [...oldData, {
+            const payload = {
+                history: [...prevData, {
                     pick,
                     comPick,
-                    results,
-                    score: score
+                    results: props.score === 0 ? 'lose' : 'win',
+                    score: props.score,
+                    createdAt: new Date()
                 }],
-                totalScore: oldData.reduce((acc, cur) => acc + cur.score, 0) + score
+                totalScore: prevData.reduce((acc, cur) => acc + cur.score, 0) + props.score
             }
-            // const newData = [...oldData, newField]
-            console.log(newField);
-            await updateDoc(docRef, newField)
+            await updateDoc(docRef, payload)
             navigate('/')
 
         } catch (error) {
             console.log(error)
         }
     }
+    const getUser = async () => {
+        const userRef = doc(db, 'users', auth?.currentUser?.uid)
+        try {
+            const user = await getDoc(userRef)
+            if (user?.exists()) {
+                setPrevData(user?.data()?.history)
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() => {
+        getUser()
+    }, [])
+
     return (
         <TableStyled playing={playing} results={(results !== '')}>
             <span className="line"></span>
