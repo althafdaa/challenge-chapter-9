@@ -1,3 +1,7 @@
+import { signOut } from 'firebase/auth';
+import { toast } from 'react-toastify';
+import { auth } from '../configs/firebase.config';
+
 export const getLocalStorageValue = (name) => {
   if (typeof window !== 'undefined') {
     const getData = localStorage.getItem(name);
@@ -10,4 +14,9 @@ export const getLocalStorageValue = (name) => {
 export const setLocalStorageValue = (key, value) => {
   let stringifyVal = JSON.stringify(value);
   localStorage.setItem(key, stringifyVal);
+};
+
+export const Logout = async () => {
+  await signOut(auth);
+  toast.success("You're logged out");
 };
