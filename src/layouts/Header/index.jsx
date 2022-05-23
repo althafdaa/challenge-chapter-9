@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { LeftMenu, } from '../../utils/constant';
+import { LeftMenu } from '../../utils/constant';
 import { useStoreAuth } from '../../contexts/useAuth';
-import { Logout } from '../../utils/etc'
+import { Logout } from '../../utils/etc';
 
 const Header = () => {
-  
-  const user = useStoreAuth().loggedIn
+  const user = useStoreAuth().loggedIn;
 
   return (
     <>
@@ -14,7 +13,9 @@ const Header = () => {
         <nav className="px-8 h-[80px] max-h-[80px] flex items-center justify-between text-[10px] lg:text-[14px]">
           <div className="flex items-center gap-14">
             <Link to="/">
-              <div className="text-xl font-bold">LOGO</div>
+              <div className="transition-all text-xl font-bold hover:text-slate-400">
+                GameBank
+              </div>
             </Link>
 
             <div className="flex gap-8 font-medium mt-2">
@@ -31,18 +32,39 @@ const Header = () => {
           </div>
 
           <div className="flex gap-8 font-medium mt-2 ">
-                {user && (
-                <>
-                <Link to="/profile" className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400' >Profile</Link>
-                <Link to="/" className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400' onClick={Logout}>Logout</Link>
-                </>
-                )}
-                {!user && (
-                <>
-                <Link to='/login' className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400'>Login</Link>
-                <Link to='/register' className='transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400'>Register</Link>
-                </>
-                )}
+            {user && (
+              <>
+                <Link
+                  to="/profile"
+                  className="transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400"
+                >
+                  Profile
+                </Link>
+                <Link
+                  to="/"
+                  className="transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400"
+                  onClick={Logout}
+                >
+                  Logout
+                </Link>
+              </>
+            )}
+            {!user && (
+              <>
+                <Link
+                  to="/login"
+                  className="transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="transition-all pb-2 border-b-2 hover:border-slate-400 hover:text-slate-400"
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
         </nav>
       </header>
