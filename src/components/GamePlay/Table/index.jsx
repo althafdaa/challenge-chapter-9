@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import Pick from '../Pick'
+
+import { getAuth } from 'firebase/auth'
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import { db } from '../../../configs/firebase.config';
 
 const TableStyled = styled.div`
   display: grid;
@@ -101,6 +106,11 @@ const Table = (props) => {
     const [comPick, setComPick] = useState('default')
     const [playing, setPlaying] = useState(false)
     const [pick, setPick] = useState('')
+    const [prevData, setPrevData] = useState([])
+    const auth = getAuth()
+
+    const navigate = useNavigate();
+
     const getRandomInt = (min, max) => {
         return Math.floor(Math.random() * (max - min)) + min;
     }
@@ -124,7 +134,7 @@ const Table = (props) => {
         const results = gameStart(name, comChoosePick)
         setResults(results)
         if (results === 'win') {
-            props.getScore(prev => prev + 1)
+            props.setScore(prev => prev + 1)
         }
     }
     const gameStart = (pick, comPick) => {
@@ -160,6 +170,43 @@ const Table = (props) => {
         setPlaying(false)
         setResults('')
     }
+
+    const endGame = async () => {
+        try {
+            const docRef = doc(db, 'users', auth?.currentUser?.uid)
+            const payload = {
+                history: [...prevData, {
+                    pick,
+                    comPick,
+                    results: props.score === 0 ? 'lose' : 'win',
+                    score: props.score,
+                    createdAt: new Date()
+                }],
+                totalScore: prevData.reduce((acc, cur) => acc + cur.score, 0) + props.score
+            }
+            await updateDoc(docRef, payload)
+            navigate('/')
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const getUser = async () => {
+        const userRef = doc(db, 'users', auth?.currentUser?.uid)
+        try {
+            const user = await getDoc(userRef)
+            if (user?.exists()) {
+                setPrevData(user?.data()?.history)
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() => {
+        getUser()
+    }, [])
+
     return (
         <TableStyled playing={playing} results={(results !== '')}>
             <span className="line"></span>
@@ -189,7 +236,7 @@ const Table = (props) => {
                                         <button className="bg-white rounded-md py-5 px-8" onClick={handleTryAgain}>
                                             Try Again
                                         </button>
-                                        <button className="py-5 px-7 md:mt-8 ml-2 md:ml-0 bg-green-400 hover:bg-green-500 text-center rounded-md transition-[0.5s]">End Game</button>
+                                        <button onClick={endGame} className="py-5 px-7 md:mt-8 ml-2 md:ml-0 bg-green-400 hover:bg-green-500 text-center rounded-md transition-[0.5s]">End Game</button>
                                     </>
                                 )
                             }

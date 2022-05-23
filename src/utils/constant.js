@@ -32,6 +32,13 @@ export const GameLists = [
   },
 ];
 
+export const history = [
+  {result: 'win', pick:'rock ', date: new Date(), comPick: 'scissors', score: '5'},
+  {result: 'lose', pick:'scissors ', date: new Date(), comPick: 'rock', score: '6'},
+  {result: 'draw', pick:'paper ', date: new Date(), comPick: 'paper', score: '20'},
+  {result: 'win', pick:'scissors ', date: new Date(), comPick: 'paper ', score: '15'},
+]
+
 export const TopRank = [
   {
     username : 'jokoneverdie',
