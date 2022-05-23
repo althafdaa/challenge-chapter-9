@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import {  getDoc , doc} from 'firebase/firestore';
 import {  db } from '../../configs/firebase.config';
 import { getAuth } from 'firebase/auth';
-import { history } from '../../utils/constant';
+
 
 
 const Profile = () => {
@@ -17,7 +17,7 @@ const Profile = () => {
 
         try {
             const result = await getDoc(docRef)
-            console.log(result);
+            
 
             if (result.exists()){
                 setData(result?.data());
@@ -29,9 +29,9 @@ const Profile = () => {
         }
     }
     
-    useEffect(() => {
-        getData();
-    }, []);
+    useEffect(()=> {
+        getData()
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <main className="relative min-h-screen">
@@ -82,7 +82,7 @@ const Profile = () => {
                                 <h1 className='text-lg font-medium'>History Game</h1>
                                 <div className={classes}>
                                     <div className="h-[60vh] overflow-y-auto px-2 scroll">
-                                    {history?.map((item, idx) => {
+                                    {data?.history?.map((item, idx) => {
                                         return <GameHistory data={item} key={idx} />;
                                         })}
                                     </div>
